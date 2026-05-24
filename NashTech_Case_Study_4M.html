@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NashTech The Rookies - 4M Brainstorming Case Study</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables: {
+        primaryColor: '#ffffff',
+        primaryBorderColor: '#8a2be2',
+        lineColor: '#bb86fc',
+        textColor: '#ffffff',
+        fontFamily: 'Outfit'
+      }});
+    </script>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --text-color: #e2e8f0;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --accent-gradient: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            --border-radius: 16px;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #94a3b8;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+            animation: fadeInUp 1s ease-out both;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(139, 92, 246, 0.4);
+        }
+
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.4s; }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+            padding-bottom: 15px;
+        }
+
+        .badge {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .m-box {
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #8b5cf6;
+        }
+
+        .m-box strong { color: #fff; display: block; margin-bottom: 5px; font-size: 1.1rem; }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        th {
+            background: rgba(0,0,0,0.3);
+            color: #a78bfa;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        th:first-child { border-top-left-radius: 12px; }
+        th:last-child { border-top-right-radius: 12px; }
+        tr:last-child td:first-child { border-bottom-left-radius: 12px; }
+        tr:last-child td:last-child { border-bottom-right-radius: 12px; }
+
+        tr:hover td { background: rgba(139, 92, 246, 0.1); }
+
+        .topic-name { font-weight: 600; color: #fff; }
+        
+        .tag {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .mermaid {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 20px;
+            overflow-x: auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            table, th, td { font-size: 0.9rem; }
+            h1 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>NashTech "The Rookies"</h1>
+            <div class="subtitle">Phân tích ma trận 4M & Brainstorm "Làm toán tổ hợp" Sinh 10 Topics Nội Dung</div>
+        </header>
+
+        <section class="card">
+            <h2>🎯 Phân tích 4M Chiến dịch Thực tế</h2>
+            <p>Từ một Job Description / Thông báo tuyển thẳng, chúng ta quy chuẩn thành 4 biến số cốt lõi:</p>
+            <div class="grid-2">
+                <div class="m-box" style="border-left-color: #3b82f6;">
+                    <span class="badge">M1 / Message</span>
+                    <p>Chương trình đào tạo chuyên sâu (Intensive training program) cho sinh viên năm cuối và mới tốt nghiệp ngành IT.</p>
+                </div>
+                <div class="m-box" style="border-left-color: #8b5cf6;">
+                    <span class="badge">M2 / Mood</span>
+                    <p>Professional (Chuyên nghiệp), Empowering (Trao quyền), Ambitious (Khát vọng/Tham vọng).</p>
+                </div>
+                <div class="m-box" style="border-left-color: #ec4899;">
+                    <span class="badge">M3 / Material</span>
+                    <p>- **Benefits:** Đào tạo miễn phí, dự án toàn cầu, kỹ năng mềm.<br>- **Testimonials:** Lời bình học viên & chuyên gia.</p>
+                </div>
+                <div class="m-box" style="border-left-color: #10b981;">
+                    <span class="badge">M4 / Medium</span>
+                    <p>Poster Design (Tuyên ngôn), Thematic Interview (Phỏng vấn đính kèm bộ ảnh), Video ngắn.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>🧠 Sơ đồ Tư duy Phân tách</h2>
+            <p>Dựa trên Nguyên lý: Cố định thông điệp M1, nhánh các Mood (M2) xuống Material (M3) và Medium (M4).</p>
+            <div class="mermaid">
+                flowchart LR
+                M1[M1: Khóa đào tạo Chuyên sâu IT] --> M2A(M2: Professional)
+                M1 --> M2B(M2: Empowering)
+                M1 --> M2C(M2: Ambitious)
+                
+                M2A --> M3A1{M3: Testimonials}
+                M2A --> M3A2{M3: Benefits}
+                
+                M3A1 -->|M4: Photo List| T2[Topic 2]
+                M3A2 -->|M4: Poster| T5[Topic 5]
+                M3A2 -->|M4: Interview| T8[Topic 8]
+                M3A2 -->|M4: Poster| T3[Topic 3]
+                
+                M2B --> M3B1{M3: Benefits}
+                M2B --> M3B2{M3: Testimonials}
+                
+                M3B1 -->|M4: Poster| T1[Topic 1]
+                M3B1 -->|M4: Milestone| T7[Topic 7]
+                M3B2 -->|M4: Photo List| T4[Topic 4]
+                M3B2 -->|M4: Video Short| T9[Topic 9]
+                
+                M2C --> M3C1{M3: Testimonials}
+                M2C --> M3C2{M3: Call to Action}
+                
+                M3C1 -->|M4: Interview| T6[Topic 6]
+                M3C2 -->|M4: Poster| T10[Topic 10]
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Thực chiến Ma trận Tổ hợp 10 Ý tưởng</h2>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>💡 Ý tưởng Kịch bản (Topic Output)</th>
+                            <th>M2 (Mood)</th>
+                            <th>M3 (Material)</th>
+                            <th>M4 (Medium)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="topic-name">T1: Poster tuyên bố "Nhận dự án toàn cầu ngay từ đầu"</td>
+                            <td><span class="tag">Empowering</span></td>
+                            <td>Hands-on Benefits</td>
+                            <td>Poster</td>
+                        </tr>
+                        <tr>
+                            <td class="topic-name">T2: Chùm ảnh Mentor đánh giá chất lượng lứa Rookies</td>
+                            <td><span class="tag">Professional</span></td>
+                            <td>Testimonials</td>
+                            <td>Photo List</td>
+                        </tr>
+                        <tr>
+                            <td class="topic-name">T3: Poster "Kỹ sư IT toàn năng: Code mượt, Tiếng Anh tốt"</td>
+                            <td><span class="tag">Ambitious</span></td>
+                            <td>Soft Skills</td>
+                            <td>Poster</td>
+                        </tr>
+                        <tr>
+                            <td class="topic-name">T4: Chùm ảnh "Before - After" lột xác của cựu Rookies</td>
+                            <td><span class="tag">Empowering</span></td>
+                            <td>Testimonials</td>
+                            <td>Photo List</td>
+                        </tr>
+                        <tr>
+                            <td class="topic-name">T5: Infographic giải mã lộ trình học 3 tháng miễn phí</td>
+                            <td><span class="tag">Professional</span></td>
+                            <td>Free course</td>
+                            <td>Poster / Info</td>
+                        </tr>
+                        <tr>
+                            <td class="topic-name">T6: Phỏng vấn thủ khoa chia sẻ về tham vọng thăng tiến</td>
+                            <td><span class="tag">Ambitious</span></td>
+                            <td>Testimonials</td>
+                            <td>Interview</td>
+                        </tr>
+                        <tr>
+                            <td class="topic-name">T7: Câu chuyện "Vượt sướng" nhận chứng chỉ tốt nghiệp</td>
+                            <td><span class="tag">Empowering</span></td>
+                            <td>Intensive Train</td>
+                            <td>Milestone</td>
+                        </tr>
+                        <tr>
+                            <td class="topic-name">T8: Trò chuyện PM: "Kỳ vọng gì ở 1 Fresher?"</td>
+                            <td><span class="tag">Professional</span></td>
+                            <td>Hands-on</td>
+                            <td>Interview</td>
+                        </tr>
+                        <tr>
+                            <td class="topic-name">T9: Trích dẫn học viên: "Nơi bước vào thế giới thực"</td>
+                            <td><span class="tag">Empowering</span></td>
+                            <td>Testimonials</td>
+                            <td>Video/Quote</td>
+                        </tr>
+                        <tr>
+                            <td class="topic-name">T10: Kêu gọi hành động: "Vượt giới hạn bản thân"</td>
+                            <td><span class="tag">Ambitious</span></td>
+                            <td>Call to Action</td>
+                            <td>Poster</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- NEW CASE 2 -->
+        <header style="margin-top: 60px;">
+            <h1 style="font-size: 2.5rem;">NashTech "The Rookies" - M1 Mở rộng</h1>
+            <div class="subtitle">Bổ sung M1: Cơ hội Onsite Nước Ngoài & Tổ hợp 10 Ý tưởng Mới</div>
+        </header>
+
+        <section class="card">
+            <h2>🎯 Phân tích 4M cho M1 Mới (Onsite)</h2>
+            <div class="grid-2">
+                <div class="m-box" style="border-left-color: #3b82f6;">
+                    <span class="badge">M1 / Message</span>
+                    <p>Cơ hội đi onsite làm việc trực tiếp tại dự án của khách hàng bên nước ngoài dành cho những lứa The Rookies xuất sắc nhất.</p>
+                </div>
+                <div class="m-box" style="border-left-color: #8b5cf6;">
+                    <span class="badge">M2 / Mood</span>
+                    <p>Inspiring (Truyền cảm hứng), Global/Dynamic (Quốc tế/Năng động), Challenging (Thử thách vươn xa).</p>
+                </div>
+                <div class="m-box" style="border-left-color: #ec4899;">
+                    <span class="badge">M3 / Material</span>
+                    <p>- Hành trình thực tế/Vlog check-in.<br>- Chính sách tài trợ Visa/Chuyến bay.<br>- Trích dẫn từ khách hàng/cựu Rookie.</p>
+                </div>
+                <div class="m-box" style="border-left-color: #10b981;">
+                    <span class="badge">M4 / Medium</span>
+                    <p>Short Video (Tiktok/Reels), Photo Album (Passport/Check-in), Bài Phỏng Vấn (Blog), Quote Poster.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>🧠 Sơ đồ Tư duy Phân tách - M1 Mở rộng</h2>
+            <div class="mermaid">
+                flowchart LR
+                M1[M1: Cơ hội Onsite Quốc tế] --> M2A(M2: Inspiring)
+                M1 --> M2B(M2: Global/Dynamic)
+                M1 --> M2C(M2: Challenging)
+                
+                M2A --> M3A1{M3: Real Vlog}
+                M2A --> M3A2{M3: Interview}
+                
+                M3A1 -->|M4: Short Video| T1[Topic 1: Vlog London]
+                M3A1 -->|M4: Video| T5[Topic 5: Phản ứng Gia đình]
+                M3A2 -->|M4: Blog| T2[Topic 2: Mất bao lâu để onsite]
+                
+                M2B --> M3B1{M3: Check-in Photos}
+                M2B --> M3B2{M3: Policy/Interactive}
+                
+                M3B1 -->|M4: Photo Album| T3[Topic 3: Passport Series]
+                M3B2 -->|M4: Infographic| T6[Topic 6: Checklist chuẩn bị]
+                M3B2 -->|M4: Interactive| T10[Topic 10: Đoán quốc gia]
+                
+                M2C --> M3C1{M3: Quote/Testimonial}
+                M2C --> M3C2{M3: Career Path}
+                
+                M3C1 -->|M4: Quote Poster| T7[Topic 7: Lời khen từ Khách hàng]
+                M3C1 -->|M4: Quote Poster| T4[Topic 4: Vượt rào cản địa lý]
+                M3C2 -->|M4: Carousel| T8[Topic 8: 3 Bước giành slot onsite]
+                M3C2 -->|M4: Livestream| T9[Topic 9: AMA Livestream]
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>🔥 Thực chiến Ma trận Tổ hợp 10 Ý tưởng Mới</h2>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>💡 Ý tưởng Kịch bản (Topic Output)</th>
+                            <th>M2 (Mood)</th>
+                            <th>M3 (Material)</th>
+                            <th>M4 (Medium)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="topic-name">T1: Vlog "1 ngày làm việc tại London của cựu Rookie NashTech"</td>
+                            <td><span class="tag">Inspiring</span></td>
+                            <td>Real Vlog</td>
+                            <td>Short Video</td>
+                        </tr>
+                        <tr>
+                            <td class="topic-name">T2: Phỏng vấn: "Từ Fresher đến chuyến bay onsite đầu tiên mất bao lâu?"</td>
+                            <td><span class="tag">Inspiring</span></td>
+                            <td>Interview</td>
+                            <td>Blog Article</td>
+                        </tr>
+                        <tr>
+                            <td class="topic-name">T3: Bộ ảnh: Tráng men Passport cùng dàn kỹ sư trẻ NashTech</td>
+                            <td><span class="tag">Global</span></td>
+                            <td>Check-in Photos</td>
+                            <td>Photo Album</td>
+                        </tr>
+                        <tr>
+                            <td class="topic-name">T4: Poster: "Phá vỡ rào cản địa lý - Trở thành Global Engineer thực thụ"</td>
+                            <td><span class="tag">Challenging</span></td>
+                            <td>Quote</td>
+                            <td>Poster</td>
+                        </tr>
+                        <tr>
+                            <td class="topic-name">T5: Reaction: Phản ứng gia đình khi nghe tin bạn được mác Vali đi onsite</td>
+                            <td><span class="tag">Inspiring</span></td>
+                            <td>Real Vlog</td>
+                            <td>Video</td>
+                        </tr>
+                        <tr>
+                            <td class="topic-name">T6: Checklist "Hành trang cần thiết cho chuyến onsite châu Âu năm 22 tuổi"</td>
+                            <td><span class="tag">Global</span></td>
+                            <td>Policy Info</td>
+                            <td>Infographic</td>
+                        </tr>
+                        <tr>
+                            <td class="topic-name">T7: Trích điểm thực tế từ Khách hàng quốc tế đánh giá lứa Rookie Việt Nam</td>
+                            <td><span class="tag">Challenging</span></td>
+                            <td>Testimonial</td>
+                            <td>Quote Poster</td>
+                        </tr>
+                        <tr>
+                            <td class="topic-name">T8: Lộ trình: "3 bước cốt lõi để giành slot onsite ngay trong 2 năm đầu"</td>
+                            <td><span class="tag">Challenging</span></td>
+                            <td>Career Path</td>
+                            <td>Carousel</td>
+                        </tr>
+                        <tr>
+                            <td class="topic-name">T9: AMA Livestream nối cầu truyền hình mộc mạc cùng Kỹ sư đang onsite tại Úc</td>
+                            <td><span class="tag">Dynamic</span></td>
+                            <td>Career Path</td>
+                            <td>Livestream</td>
+                        </tr>
+                        <tr>
+                            <td class="topic-name">T10: Mini-game: Đoán xem dự án onsite tiếp theo của dàn Rookie ở Quốc gia nào?</td>
+                            <td><span class="tag">Global</span></td>
+                            <td>Interactive</td>
+                            <td>Social Post</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <!-- NEW CASE 3: SHORT VIDEO FOCUS -->
+        <header style="margin-top: 60px;">
+            <h1 style="font-size: 2.5rem; background: linear-gradient(135deg, #f59e0b, #ef4444); -webkit-background-clip: text; background-clip: text;">NashTech "Short Video" Magic</h1>
+            <div class="subtitle">Bổ sung 10 Ý tưởng Short Video (< 30s) - Mood: Authentic & Vibrant</div>
+        </header>
+
+        <section class="card">
+            <h2>🎯 Phân tích 4M: Chuyên đề Short Video</h2>
+            <div class="grid-2">
+                <div class="m-box" style="border-left-color: #f59e0b;">
+                    <span class="badge" style="background: rgba(245, 158, 11, 0.2); color: #fbbf24;">M1 / Message</span>
+                    <p>NashTech không chỉ là nơi làm việc, mà là nơi sống trọn đam mê công nghệ và kết nối cộng đồng trẻ.</p>
+                </div>
+                <div class="m-box" style="border-left-color: #ef4444;">
+                    <span class="badge" style="background: rgba(239, 68, 68, 0.2); color: #f87171;">M2 / Mood</span>
+                    <p>Authentic (Chân thực), Tech-savvy (Sành công nghệ), Vibrant (Năng động/Rực rỡ).</p>
+                </div>
+                <div class="m-box" style="border-left-color: #ec4899;">
+                    <span class="badge">M3 / Material</span>
+                    <p>- Văn phòng/Pantry/Góc làm việc.<br>- Khoảnh khắc Mentor/Rookie thảo luận.<br>- Đồ dùng cá nhân (Welcome Kit).</p>
+                </div>
+                <div class="m-box" style="border-left-color: #10b981;">
+                    <span class="badge">M4 / Medium</span>
+                    <p><strong>Cố định:</strong> Short Video (< 30 giây) - TikTok, Reels, YouTube Shorts.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>🧠 Sơ đồ Tư duy Phân tách - Video Strategy</h2>
+            <div class="mermaid">
+                flowchart LR
+                M1[M1: Sống trọn đam mê tại NashTech] --> M2A(M2: Authentic)
+                M1 --> M2B(M2: Tech-savvy)
+                M1 --> M2C(M2: Vibrant)
+                
+                M2A --> M3A1{M3: Personal Items}
+                M2A --> M3A2{M3: Teammate View}
+                
+                M3A1 -->|M4: < 30s| V1[V1: What's in my bag]
+                M3A1 -->|M4: < 30s| V5[V5: First Day Kit]
+                M3A2 -->|M4: < 30s| V8[V8: Team Review]
+                
+                M2B --> M3B1{M3: Working Snapshots}
+                M2B --> M3B2{M3: Tech Tips}
+                
+                M3B1 -->|M4: < 30s| V4[V4: Training Snapshot]
+                M3B1 -->|M4: < 30s| V9[V9: Late Night Deploy]
+                M3B2 -->|M4: < 30s| V6[V6: Quick Tech Tip]
+                
+                M2C --> M3C1{M3: Office Vibes}
+                M2C --> M3C2{M3: Success Moments}
+                
+                M3C1 -->|M4: < 30s| V1[V1: Office Hyperlapse]
+                M3C1 -->|M4: < 30s| V3[V3: Lunch Break]
+                M3C1 -->|M4: < 30s| V7[V7: Coffee Ritual]
+                M3C2 -->|M4: < 30s| V10[V10: Project Done!]
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>🎬 Ma trận 10 Ý tưởng Short Video thực chiến</h2>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>📺 Kịch bản Video (Short Form)</th>
+                            <th>M2 (Mood)</th>
+                            <th>M3 (Material)</th>
+                            <th>Thời lượng (Dự kiến)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="topic-name">V1: Office Hyperlapse - 30s khám phá "vũ trụ" NashTech</td>
+                            <td><span class="tag">Vibrant</span></td>
+                            <td>Office View</td>
+                            <td>25 giây</td>
+                        </tr>
+                        <tr>
+                            <td class="topic-name">V2: "What's in my bag?" - Một Rookie khoe đồ nghề đi làm</td>
+                            <td><span class="tag">Authentic</span></td>
+                            <td>Welcome Kit</td>
+                            <td>15 giây</td>
+                        </tr>
+                        <tr>
+                            <td class="topic-name">V3: Lunch Break Vibes - Phía sau những dòng Code là nụ cười</td>
+                            <td><span class="tag">Vibrant</span></td>
+                            <td>Pantry/Eat</td>
+                            <td>10 giây</td>
+                        </tr>
+                        <tr>
+                            <td class="topic-name">V4: Snapshot Training - Khoảnh khắc Mentor "cầm tay chỉ Code"</td>
+                            <td><span class="tag">Tech-savvy</span></td>
+                            <td>Training Room</td>
+                            <td>12 giây</td>
+                        </tr>
+                        <tr>
+                            <td class="topic-name">V5: POV: Cảm giác chạm tay vào Welcome Kit ngày đầu tiên</td>
+                            <td><span class="tag">Authentic</span></td>
+                            <td>First Day Kit</td>
+                            <td>20 giây</td>
+                        </tr>
+                        <tr>
+                            <td class="topic-name">V6: Quick Tech Tip - 1 mẹo nhỏ giúp Code mượt hơn từ Senior</td>
+                            <td><span class="tag">Tech-savvy</span></td>
+                            <td>Code Screen</td>
+                            <td>30 giây</td>
+                        </tr>
+                        <tr>
+                            <td class="topic-name">V7: Office Coffee Ritual - Quy trình nạp "năng lượng" sáng thứ 2</td>
+                            <td><span class="tag">Vibrant</span></td>
+                            <td>Coffee Machine</td>
+                            <td>15 giây</td>
+                        </tr>
+                        <tr>
+                            <td class="topic-name">V8: Quick Question: "Điều gì bạn thích nhất ở team mình?"</td>
+                            <td><span class="tag">Authentic</span></td>
+                            <td>Interview</td>
+                            <td>20 giây</td>
+                        </tr>
+                        <tr>
+                            <td class="topic-name">V9: Late Night Deploy (Lo-fi) - Khi văn phòng lên đèn và Code lên sàn</td>
+                            <td><span class="tag">Tech-savvy</span></td>
+                            <td>Night View</td>
+                            <td>15 giây</td>
+                        </tr>
+                        <tr>
+                            <td class="topic-name">V10: Success Moment - Cảnh hò reo khi dự án chính thức Go-live</td>
+                            <td><span class="tag">Vibrant</span></td>
+                            <td>Celebration</td>
+                            <td>10 giây</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>
